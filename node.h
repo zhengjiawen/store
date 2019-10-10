@@ -16,6 +16,7 @@ private:
 public:
     Node();
     Node(int id,int length, DATA_TYPE *data);
+    Node(const Node &node);
 
     int getLength();
     int getId();

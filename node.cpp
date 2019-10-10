@@ -7,7 +7,20 @@ Node::Node() {}
 Node::Node(int id, int length, DATA_TYPE *data) {
     this->id=id;
     this->length=length;
-    this->data=data;
+    this->data = new DATA_TYPE[length];
+    for(int i=0; i<length; i++)
+    {
+        this->data[i] = data[i];
+    }
+}
+
+Node::Node(const Node &node) {
+    this->id = node.id;
+    this->length = node.length;
+    for(int i=0; i<length; i++)
+    {
+        this->data[i] = node.data[i];
+    }
 }
 
 int Node::getId() {
@@ -31,5 +44,6 @@ DATA_TYPE Node::getDataById(int index) {
 }
 
 Node::~Node() {
+    delete[] data;
 }
 
