@@ -12,9 +12,8 @@ Table::Table(string path) {
 
 }
 
-Table::Table(list<Node>& data_list, int length) {
-    this->data_list = data_list;
-    this->length = length;
+Table::Table(list<Node>& data_list, int length):data_list(data_list), length(length) {
+
 }
 
 int Table::addNodes(list<Node>& node_list) {
@@ -24,11 +23,19 @@ int Table::addNodes(list<Node>& node_list) {
     return node_list.size();
 }
 
-void Table::addOneNode(Node node) {
-    this->data_list.emplace_back(node);
-    this->add_list.emplace_back(node);
+
+void Table::addOneNode(Node& node) {
+    this->data_list.emplace_back(node.getId(), node.getLength(), node.getAllData());
+    this->add_list.emplace_back(node.getId(), node.getLength(), node.getAllData());
     this->length++;
 }
+void Table::addOneNode(int id, int length, DATA_TYPE* data)
+{
+    this->data_list.emplace_back(id, length, data);
+    this->add_list.emplace_back(id, length, data);
+    this->length++;
+}
+
 
 int Table::check_node(list<Node>& node_list) {
 
@@ -60,15 +67,6 @@ int Table::merge() {
 }
 
 Table::~Table() {
-//    list<Node>::iterator iter;
-//    iter = this->data_list->begin();
-//    while(iter!=this->data_list->end())
-//    {
-//        Node current_node = *iter++;
-//        delete(&current_node);
-//    }
-//
-//    delete(this->data_list);
-//    delete(this->add_list);
+
 
 }

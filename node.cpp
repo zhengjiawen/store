@@ -4,9 +4,7 @@
 #include "node.h"
 
 Node::Node() {}
-Node::Node(int id, int length, DATA_TYPE *data) {
-    this->id=id;
-    this->length=length;
+Node::Node(int id, int length, DATA_TYPE *data):id(id), length(length) {
     this->data = new DATA_TYPE[length];
     for(int i=0; i<length; i++)
     {
@@ -17,6 +15,7 @@ Node::Node(int id, int length, DATA_TYPE *data) {
 Node::Node(const Node &node) {
     this->id = node.id;
     this->length = node.length;
+    this->data =  new DATA_TYPE[node.length];
     for(int i=0; i<length; i++)
     {
         this->data[i] = node.data[i];

@@ -29,7 +29,9 @@ public:
     // 通过Node中属性的id和值范围寻找node
     list<Node>& findAttrByRange(int attrId, DATA_TYPE& low, DATA_TYPE& high );
 
-    void addOneNode(Node node);
+    void addOneNode(int id, int length, DATA_TYPE* data);
+
+    void addOneNode(Node& node);
 
     int addNodes(list<Node>& node_list);
 
