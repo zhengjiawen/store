@@ -6,18 +6,18 @@
 
 using namespace std;
 
-void print_table(Table *table)
+void print_table(Table& table)
 {
-    list<Node>* node_list = table->getAllData();
+    list<Node> node_list = table.getAllData();
 
     list<Node>::iterator iter;
-    iter = node_list->begin();
+    iter = node_list.begin();
 
-    while(iter!=node_list->end())
+    while(iter!=node_list.end())
     {
-        Node* current_node = &(*iter++);
-        int* data = current_node->getAllData();
-        for(int i=0; i<current_node->getLength(); i++)
+        Node current_node = (*iter++);
+        int* data = current_node.getAllData();
+        for(int i=0; i<current_node.getLength(); i++)
         {
             cout << *(data+i) << " ";
         }
@@ -25,7 +25,7 @@ void print_table(Table *table)
     }
 }
 
-Node* gen_random_node(int id)
+Node& gen_random_node(int id)
 {
     int* data = new int[5];
     for(int j=0; j<5; j++)
@@ -33,32 +33,32 @@ Node* gen_random_node(int id)
         *(data+j) = rand();
     }
 
-    Node *node = new Node(id, 5, data);
+    Node node(id, 5, data);
     return node;
 }
 
 int main() {
     unsigned int seed = 100;
     srand(seed);
-    list<Node> *node_list = new list<Node>();
-    for(int i=0; i<10; i++)
+    list<Node> node_list;
+    for(int i=0; i<3; i++)
     {
-        Node* node = gen_random_node(i);
-        node_list->push_back(*node);
+        Node node = gen_random_node(i);
+        cout << node.getDataById(0) << endl;
+        node_list.emplace_back(node);
     }
 
     // init table
-    Table *table_p = new Table(node_list, node_list->size());
+    Table table_p(node_list, node_list.size());
     cout << "=====================init table=====================" << endl;
     print_table(table_p);
 
-    Node *added_node = gen_random_node(11);
-    table_p->addOneNode(*added_node);
+    Node added_node = gen_random_node(11);
+    table_p.addOneNode(added_node);
 
     cout << "=====================add node=====================" << endl;
     print_table(table_p);
 
 
-    delete(table_p);
     return 0;
 }
