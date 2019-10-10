@@ -37,15 +37,15 @@ int Table::check_node(list<Node> node_list) {
 
 }
 
-Node Table::getNodeByIndex(int index) {
+Node* Table::getNodeByIndex(int index) {
 
 }
 
-list<Node> Table::getAllData() {
-    return *this->data_list;
+list<Node>* Table::getAllData() {
+    return this->data_list;
 }
 
-list<Node> Table::findAttrByRange(int attrId) {
+list<Node>* Table::findAttrByRange(int attrId) {
 
 }
 
@@ -68,7 +68,6 @@ Table::~Table() {
     while(iter!=this->data_list->end())
     {
         Node current_node = *iter++;
-        delete[] current_node.getAllData();
         delete(&current_node);
     }
 

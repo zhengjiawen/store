@@ -31,6 +31,5 @@ DATA_TYPE Node::getDataById(int index) {
 }
 
 Node::~Node() {
-    delete[] data;
 }
 

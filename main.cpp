@@ -8,16 +8,16 @@ using namespace std;
 
 void print_table(Table *table)
 {
-    list<Node> node_list = table->getAllData();
+    list<Node>* node_list = table->getAllData();
 
     list<Node>::iterator iter;
-    iter = node_list.begin();
+    iter = node_list->begin();
 
-    while(iter!=node_list.end())
+    while(iter!=node_list->end())
     {
-        Node current_node = *iter++;
-        int* data = current_node.getAllData();
-        for(int i=0; i<current_node.getLength(); i++)
+        Node* current_node = &(*iter++);
+        int* data = current_node->getAllData();
+        for(int i=0; i<current_node->getLength(); i++)
         {
             cout << *(data+i) << " ";
         }

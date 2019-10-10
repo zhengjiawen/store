@@ -23,11 +23,11 @@ public:
     Table(list<Node> *data_list, int length);
     Table(string path);
 
-    Node getNodeByIndex(int index);
-    list<Node> getAllData();
+    Node* getNodeByIndex(int index);
+    list<Node>* getAllData();
 
     // 通过Node中属性的id和值范围寻找node
-    list<Node> findAttrByRange(int attrId);
+    list<Node>* findAttrByRange(int attrId);
 
     void addOneNode(Node node);
 
