@@ -8,7 +8,10 @@
 
 #include <list>
 #include <string>
+#include <utility>
 #include "node.h"
+#include <set>
+#include <iostream>
 
 using namespace std;
 
@@ -16,6 +19,7 @@ class Table {
 private:
     list<Node> data_list;
     list<Node> add_list;
+    set<int> id_set;
     int length;
 
 public:
@@ -44,7 +48,9 @@ public:
     int readFile(string path);
 
     //check node id
-    int check_node(list<Node>& node_list);
+    int check_node(int id);
+
+    void check_data_list(list<Node>& data_list);
 
     ~Table();
 

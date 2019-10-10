@@ -46,7 +46,7 @@ void gen_random_node(list<Node> &list, int index)
         {
             *(data+j) = rand();
         }
-        int id = list.size()+i;
+        int id = list.size()+1;
         list.emplace_back(id, 5, data);
     }
 }
@@ -75,6 +75,9 @@ int main() {
     cout << "=====================add node=====================" << endl;
     print_table(table_p);
 
+    cout << "=====================find node by id=====================" << endl;
+    Node node_by_index = table_p.getNodeByIndex(2);
+    cout << node_by_index.getId() << endl;
 
     return 0;
 }
