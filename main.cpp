@@ -8,14 +8,35 @@ using namespace std;
 
 void print_table(Table& table)
 {
-    list<Node> node_list = table.getAllData();
+    vector<Node> node_list = table.getAllData();
 
-    list<Node>::iterator iter;
+    vector<Node>::iterator iter;
     iter = node_list.begin();
 
     while(iter!=node_list.end())
     {
         Node current_node = (*iter++);
+        int* data = current_node.getAllData();
+        cout << current_node.getId() << " ";
+        for(int i=0; i<current_node.getLength(); i++)
+        {
+            cout << *(data+i) << " ";
+        }
+        cout<<endl;
+    }
+}
+
+void print_table(vector<Node>& node_list)
+{
+
+    vector<Node>::iterator iter;
+    iter = node_list.begin();
+
+    while(iter!=node_list.end())
+    {
+        Node current_node = (*iter++);
+        cout << current_node.getId() << " ";
+
         int* data = current_node.getAllData();
         for(int i=0; i<current_node.getLength(); i++)
         {
@@ -37,7 +58,7 @@ void print_table(Table& table)
 //    return node;
 //}
 
-void gen_random_node(list<Node> &list, int index)
+void gen_random_node(vector<Node> &list, int index)
 {
     for(int i=0; i<index; i++)
     {
@@ -54,7 +75,7 @@ void gen_random_node(list<Node> &list, int index)
 int main() {
     unsigned int seed = 100;
     srand(seed);
-    list<Node> node_list;
+    vector<Node> node_list;
     gen_random_node(node_list, 3);
 
     // init table
@@ -79,5 +100,9 @@ int main() {
     Node node_by_index = table_p.getNodeByIndex(2);
     cout << node_by_index.getId() << endl;
 
+    cout << "=====================find node by id and range=====================" << endl;
+    vector<Node> search_ret;
+    table_p.findAttrByRange(search_ret,0, 10000, 30000, 2);
+    print_table(search_ret);
     return 0;
 }

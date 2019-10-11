@@ -39,6 +39,9 @@ DATA_TYPE* Node::getAllData() {
 }
 
 DATA_TYPE Node::getDataById(int index) {
+    if(index > this->length){
+        throw "attr index is not exist, pleast check node.";
+    }
     return this->data[index];
 }
 

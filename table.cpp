@@ -5,20 +5,18 @@
 #include "table.h"
 
 
-Table::Table() {
-    this->length=0;
-}
+Table::Table():length(0) {}
 
 Table::Table(string path) {
 
 }
 
-Table::Table(list<Node>& data_list, int length):data_list(data_list), length(length) {
+Table::Table(vector<Node>& data_list, int length):data_list(data_list), length(length) {
     this->check_data_list(data_list);
 
 }
 
-int Table::addNodes(list<Node>& node_list) {
+int Table::addNodes(vector<Node>& node_list) {
     this->check_data_list(node_list);
     this->data_list.insert(this->data_list.end(), node_list.begin(), node_list.end());
     this->add_list.insert(this->add_list.end(), node_list.begin(), node_list.end());
@@ -62,7 +60,7 @@ int Table::check_node(int id) {
 
 }
 
-void Table::check_data_list(list<Node> &data_list) {
+void Table::check_data_list(vector<Node> &data_list) {
     for(auto &node:data_list){
         int ret = this->check_node(node.getId());
         if(ret == -1)
@@ -77,23 +75,33 @@ void Table::check_data_list(list<Node> &data_list) {
 Node& Table::getNodeByIndex(int index) {
     if(index > this->length)
         throw "index must be lower than attr length";
-    auto iter = this->data_list.begin();
 
-    for(int i=0; i<index; i++)
-    {
-        iter++;
-    }
-    return *iter;
+    return this->data_list[index];
 
 
 }
 
-list<Node>& Table::getAllData() {
+vector<Node>& Table::getAllData() {
     return this->data_list;
 }
 
-list<Node>& Table::findAttrByRange(int attrId, DATA_TYPE& low, DATA_TYPE& high) {
+//返回找到的node数量
+int Table::findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYPE high, int max_len) {
+    auto iter = this->data_list.begin();
+    int count = 0;
 
+    for(;iter!=this->data_list.end();iter++)
+    {
+        DATA_TYPE value = (*iter).getDataById(attrId);
+        if(value >= low && value <= high)
+        {
+            ret.emplace_back((*iter).getId(), (*iter).getLength(), (*iter).getAllData());
+            count++;
+            if(count >= max_len)
+                return max_len;
+        }
+    }
+    return count;
 }
 
 int Table::writeFile() {
