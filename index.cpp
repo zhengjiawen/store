@@ -4,6 +4,7 @@
 
 #include "index.h"
 
+
 Index::Index(int attr_id):attr_id(attr_id) {}
 
 Index::Index(vector<Node> &node_list, int attr_Id):attr_id(attr_Id) {

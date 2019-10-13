@@ -12,8 +12,12 @@
 #include "node.h"
 #include <set>
 #include <iostream>
+#include "json.hpp"
+
 
 using namespace std;
+using json=nlohmann::json;
+
 
 class Table {
 private:
