@@ -3,6 +3,7 @@
 #include <time.h>
 #include "table.h"
 #include "node.h"
+#include "index.h"
 
 using namespace std;
 
@@ -104,5 +105,12 @@ int main() {
     vector<Node> search_ret;
     table_p.findAttrByRange(search_ret,0, 10000, 30000, 2);
     print_table(search_ret);
+
+    cout << "=====================create index=====================" << endl;
+    Index index(table_p.getAllData(), 0);
+    vector<Node> index_ret ;
+    index.findNodebyValue(index_ret, 23830);
+    print_table(index_ret);
+
     return 0;
 }
