@@ -106,6 +106,7 @@ int Table::findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYP
 
 int Table::writeFile() {
 
+
 }
 
 int Table::readFile(string path) {

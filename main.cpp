@@ -66,7 +66,7 @@ void gen_random_node(vector<Node> &list, int index)
         int* data = new int[5];
         for(int j=0; j<5; j++)
         {
-            *(data+j) = rand();
+            *(data+j) = rand()%(10000);
         }
         int id = list.size()+1;
         list.emplace_back(id, 5, data);
@@ -89,7 +89,7 @@ int main() {
     int* data = new int[5];
     for(int j=0; j<5; j++)
     {
-        *(data+j) = rand();
+        *(data+j) = rand()%10000;
     }
     Node node(11, 5, data);
     table_p.addOneNode(node);
@@ -103,13 +103,13 @@ int main() {
 
     cout << "=====================find node by id and range=====================" << endl;
     vector<Node> search_ret;
-    table_p.findAttrByRange(search_ret,0, 10000, 30000, 2);
+    table_p.findAttrByRange(search_ret,0, 1000, 10000, 2);
     print_table(search_ret);
 
     cout << "=====================create index=====================" << endl;
     Index index(table_p.getAllData(), 0);
     vector<Node> index_ret ;
-    index.findNodebyValue(index_ret, 23830);
+    index.findNodebyValue(index_ret, 180);
     print_table(index_ret);
 
     return 0;
