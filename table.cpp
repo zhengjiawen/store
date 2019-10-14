@@ -8,6 +8,7 @@
 Table::Table():length(0) {}
 
 Table::Table(string path, int attr_len):path(path) {
+    shared_lock<shared_mutex> lock(_mutex);
     fstream infile;
     infile.open(this->path, ios::in);
 
@@ -43,6 +44,8 @@ Table::Table(vector<Node>& data_list, int length):data_list(data_list), add_list
 }
 
 int Table::addNodes(vector<Node>& node_list) {
+    //写锁
+    unique_lock<shared_mutex> lock(_mutex);
     this->check_data_list(node_list);
     this->data_list.insert(this->data_list.end(), node_list.begin(), node_list.end());
     this->add_list.insert(this->add_list.end(), node_list.begin(), node_list.end());
@@ -52,6 +55,8 @@ int Table::addNodes(vector<Node>& node_list) {
 
 
 void Table::addOneNode(Node& node) {
+    unique_lock<shared_mutex> lock(_mutex);
+
     auto ret = this->check_node(node.getId());
 
     if(ret == -1)
@@ -65,6 +70,8 @@ void Table::addOneNode(Node& node) {
 }
 void Table::addOneNode(int id, int length, DATA_TYPE* data)
 {
+    unique_lock<shared_mutex> lock(_mutex);
+
     auto ret = this->check_node(id);
     if(ret == -1)
     {
@@ -99,6 +106,8 @@ void Table::check_data_list(vector<Node> &data_list) {
 }
 
 Node& Table::getNodeByIndex(int index) {
+    shared_lock<shared_mutex> lock(_mutex);
+
     if(index > this->length)
         throw "index must be lower than attr length";
 
@@ -108,11 +117,15 @@ Node& Table::getNodeByIndex(int index) {
 }
 
 vector<Node>& Table::getAllData() {
+    shared_lock<shared_mutex> lock(_mutex);
+
     return this->data_list;
 }
 
 //返回找到的node数量
 int Table::findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYPE high, int max_len) {
+    shared_lock<shared_mutex> lock(_mutex);
+
     auto iter = this->data_list.begin();
     int count = 0;
 
@@ -131,6 +144,8 @@ int Table::findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYP
 }
 
 int Table::writeFile() {
+    unique_lock<shared_mutex> lock(_mutex);
+
     if(this->path.empty())
     {
         return 0;

@@ -7,16 +7,20 @@
 
 
 #include <vector>
+#include <shared_mutex>
 #include <string>
 #include <utility>
-#include "node.h"
 #include <set>
 #include <iostream>
 #include <thread>
 #include <fstream>
+#include <mutex>
+#include "node.h"
+
 
 
 using namespace std;
+
 
 class Table {
 private:
@@ -27,6 +31,7 @@ private:
     string path;
     fstream outfile;
 
+    mutable shared_mutex _mutex;
 
 public:
     Table();
