@@ -122,7 +122,8 @@ int main() {
 
     cout << "=====================read from file=====================" << endl;
     string output_path = "D:\\tmp\\temp.txt";
-    Table t(output_path,6);
+    Table t(output_path,5);
+    print_table(t);
 
     return 0;
 }

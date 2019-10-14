@@ -22,23 +22,19 @@ Table::Table(string path, int attr_len):path(path) {
         {
             infile >> id;
         }
-
-        infile >> data[count%attr_len];
-//        cout << data[count%attr_len] << endl;
-
         if(count%attr_len==0 && count !=0)
         {
             this->data_list.emplace_back(id, attr_len, data);
             infile >> id;
         }
+        infile >> data[count%attr_len];
+//        cout << data[count%attr_len] << endl;
+
         count++;
-
-
     }
     delete[] data;
     infile.close();
 //    this->outfile.open(this->path, ios::app);
-
 }
 
 Table::Table(vector<Node>& data_list, int length):data_list(data_list), add_list(data_list),length(length) {
@@ -168,14 +164,7 @@ int Table::writeFile(string &output_path) {
 
 }
 
-int Table::readFile(string path) {
 
-}
-
-// write added list node to file
-int Table::merge() {
-
-}
 
 Table::~Table() {
     this->outfile.close();

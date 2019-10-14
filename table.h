@@ -46,14 +46,11 @@ public:
 
     int addNodes(vector<Node>& node_list);
 
-    int merge();
 
     //write to file
     int writeFile();
     int writeFile(string &output_path);
 
-    //read disk file
-    int readFile(string path);
 
     //check node id
     int check_node(int id);
