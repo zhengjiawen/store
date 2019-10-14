@@ -76,41 +76,53 @@ void gen_random_node(vector<Node> &list, int index)
 int main() {
     unsigned int seed = 100;
     srand(seed);
-    vector<Node> node_list;
-    gen_random_node(node_list, 3);
+//    vector<Node> node_list;
+//    gen_random_node(node_list, 3);
+//
+//    // init table
+//    Table table_p(node_list, node_list.size());
+//    cout << "=====================init table=====================" << endl;
+//    print_table(table_p);
+//
+//    gen_random_node(node_list, 1);
+//
+//    int* data = new int[5];
+//    for(int j=0; j<5; j++)
+//    {
+//        *(data+j) = rand()%10000;
+//    }
+//    Node node(11, 5, data);
+//    table_p.addOneNode(node);
+//
+//    cout << "=====================write to file=====================" << endl;
+//    string output_path = "D:\\tmp\\temp.txt";
+//    table_p.writeFile(output_path);
+//
+//    cout << "=====================add node=====================" << endl;
+//    print_table(table_p);
+//
+//    cout << "=====================find node by id=====================" << endl;
+//    Node node_by_index = table_p.getNodeByIndex(2);
+//    cout << node_by_index.getId() << endl;
+//
+//    cout << "=====================find node by id and range=====================" << endl;
+//    vector<Node> search_ret;
+//    table_p.findAttrByRange(search_ret,0, 1000, 10000, 2);
+//    print_table(search_ret);
+//
+//    cout << "=====================create index=====================" << endl;
+//    Index index(table_p.getAllData(), 0);
+//    vector<Node> index_ret ;
+//    index.findNodebyValue(index_ret, 1254);
+//    print_table(index_ret);
+//
+//    cout << "=====================write to file2=====================" << endl;
+//    table_p.writeFile();
 
-    // init table
-    Table table_p(node_list, node_list.size());
-    cout << "=====================init table=====================" << endl;
-    print_table(table_p);
 
-    gen_random_node(node_list, 1);
-
-    int* data = new int[5];
-    for(int j=0; j<5; j++)
-    {
-        *(data+j) = rand()%10000;
-    }
-    Node node(11, 5, data);
-    table_p.addOneNode(node);
-
-    cout << "=====================add node=====================" << endl;
-    print_table(table_p);
-
-    cout << "=====================find node by id=====================" << endl;
-    Node node_by_index = table_p.getNodeByIndex(2);
-    cout << node_by_index.getId() << endl;
-
-    cout << "=====================find node by id and range=====================" << endl;
-    vector<Node> search_ret;
-    table_p.findAttrByRange(search_ret,0, 1000, 10000, 2);
-    print_table(search_ret);
-
-    cout << "=====================create index=====================" << endl;
-    Index index(table_p.getAllData(), 0);
-    vector<Node> index_ret ;
-    index.findNodebyValue(index_ret, 180);
-    print_table(index_ret);
+    cout << "=====================read from file=====================" << endl;
+    string output_path = "D:\\tmp\\temp.txt";
+    Table t(output_path,6);
 
     return 0;
 }
