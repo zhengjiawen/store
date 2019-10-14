@@ -7,11 +7,30 @@
 
 Table::Table():length(0) {}
 
-Table::Table(string path) {
+Table::Table(string path, int attr_len):path(path) {
+    fstream infile;
+    infile.open(this->path, ios::in);
+
+    while (!infile.eof())
+    {
+        if(infile.fail())
+            break;
+        string node;
+
+        infile >> node;
+        cout << node << endl;
+
+
+    }
+
+
+
+    infile.close();
+//    this->outfile.open(this->path, ios::app);
 
 }
 
-Table::Table(vector<Node>& data_list, int length):data_list(data_list), length(length) {
+Table::Table(vector<Node>& data_list, int length):data_list(data_list), add_list(data_list),length(length) {
     this->check_data_list(data_list);
 
 }
@@ -105,6 +124,36 @@ int Table::findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYP
 }
 
 int Table::writeFile() {
+    if(this->path.empty())
+    {
+        return 0;
+    }
+
+
+    for(auto node:this->add_list)
+    {
+        DATA_TYPE* data = node.getAllData();
+        int len = node.getLength();
+        this->outfile << node.getId() << " ";
+
+        for(int i=0; i<len; i++)
+        {
+            this->outfile << data[i] << " " ;
+        }
+        this->outfile << endl;
+    }
+    this->outfile.flush();
+    this->add_list.clear();
+    return this->add_list.size();
+
+}
+
+int Table::writeFile(string &output_path) {
+    this->path=output_path;
+
+    this->outfile.open(this->path, ios::app);
+
+    return writeFile();
 
 }
 
@@ -118,6 +167,6 @@ int Table::merge() {
 }
 
 Table::~Table() {
-
+    this->outfile.close();
 
 }

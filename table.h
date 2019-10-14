@@ -12,12 +12,11 @@
 #include "node.h"
 #include <set>
 #include <iostream>
-#include "json.hpp"
+#include <thread>
+#include <fstream>
 
 
 using namespace std;
-using json=nlohmann::json;
-
 
 class Table {
 private:
@@ -25,11 +24,15 @@ private:
     vector<Node> add_list;
     set<int> id_set;
     int length;
+    string path;
+    fstream outfile;
+
 
 public:
     Table();
     Table(vector<Node>& data_list, int length);
-    Table(string path);
+    //attr_len是每个node属性的数量
+    Table(string path, int attr_len);
 
     Node& getNodeByIndex(int index);
     vector<Node>& getAllData();
@@ -45,8 +48,9 @@ public:
 
     int merge();
 
-    //write to file, format json
+    //write to file
     int writeFile();
+    int writeFile(string &output_path);
 
     //read disk file
     int readFile(string path);
