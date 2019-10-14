@@ -11,20 +11,31 @@ Table::Table(string path, int attr_len):path(path) {
     fstream infile;
     infile.open(this->path, ios::in);
 
+    int count=0;
+    DATA_TYPE* data = new DATA_TYPE[attr_len];
+    int id;
     while (!infile.eof())
     {
         if(infile.fail())
             break;
-        string node;
+        if(count == 0)
+        {
+            infile >> id;
+        }
 
-        infile >> node;
-        cout << node << endl;
+        infile >> data[count%attr_len];
+//        cout << data[count%attr_len] << endl;
+
+        if(count%attr_len==0 && count !=0)
+        {
+            this->data_list.emplace_back(id, attr_len, data);
+            infile >> id;
+        }
+        count++;
 
 
     }
-
-
-
+    delete[] data;
     infile.close();
 //    this->outfile.open(this->path, ios::app);
 
