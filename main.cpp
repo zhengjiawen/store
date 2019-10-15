@@ -1,9 +1,12 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <thread>
+#include <unistd.h>
 #include "table.h"
 #include "node.h"
 #include "index.h"
+
 
 using namespace std;
 
@@ -73,6 +76,21 @@ void gen_random_node(vector<Node> &list, int index)
     }
 }
 
+void test_thread_push(Table& table, int begin_id, int number, int length, int v_ran=1000)
+{
+    for(int i=0; i<number; i++)
+    {
+        int* data = new int[length];
+        for(int j=0; j<5; j++)
+        {
+            *(data+j) = rand()%(v_ran);
+        }
+        table.addOneNode(begin_id+i, length, data);
+        usleep(100);
+
+    }
+}
+
 int main() {
     unsigned int seed = 100;
     srand(seed);
@@ -94,9 +112,9 @@ int main() {
     Node node(11, 5, data);
     table_p.addOneNode(node);
 //
-//    cout << "=====================write to file=====================" << endl;
-//    string output_path = "D:\\tmp\\temp.txt";
-//    table_p.writeFile(output_path);
+    cout << "=====================write to file=====================" << endl;
+    string output_path = "D:\\tmp\\temp.txt";
+    table_p.writeFile(output_path);
 
     cout << "=====================add node=====================" << endl;
     print_table(table_p);
@@ -116,14 +134,23 @@ int main() {
     index.findNodebyValue(index_ret, 1254);
     print_table(index_ret);
 //
-//    cout << "=====================write to file2=====================" << endl;
-//    table_p.writeFile();
+    cout << "=====================write to file2=====================" << endl;
+    table_p.writeFile();
 
 
-//    cout << "=====================read from file=====================" << endl;
+    cout << "=====================read from file=====================" << endl;
 //    string output_path = "D:\\tmp\\temp.txt";
-//    Table t(output_path,5);
-//    print_table(t);
+    Table t(output_path,5);
+    print_table(t);
+
+    cout << "=====================test thread=====================" << endl;
+    thread t1(test_thread_push, ref(table_p), 100, 20, 5,1000);
+    thread t2(test_thread_push, ref(table_p), 1000, 20, 5,1000);
+
+    t1.join();
+    t2.join();
+    table_p.writeFile();
+
 
 
     return 0;
