@@ -68,12 +68,29 @@ void Table::addOneNode(Node& node) {
     this->add_list.emplace_back(node.getId(), node.getLength(), node.getAllData());
     this->length++;
 }
+
 void Table::addOneNode(int length, DATA_TYPE* data)
 {
+
     unique_lock<shared_mutex> lock(_mutex);
 
     this->data_list.emplace_back(length, data);
     this->add_list.emplace_back(length, data);
+    this->length++;}
+
+void Table::addOneNode(int id, int length, DATA_TYPE* data)
+{
+    unique_lock<shared_mutex> lock(_mutex);
+
+    auto ret = this->check_node(id);
+    if(ret == -1)
+    {
+        cout << "id is not unique" << endl;
+        throw "id is not unique";
+    }
+
+    this->data_list.emplace_back(id, length, data);
+    this->add_list.emplace_back(id, length, data);
     this->length++;
 }
 

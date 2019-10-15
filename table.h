@@ -47,6 +47,7 @@ public:
     // 通过Node中属性的id和值范围寻找node
     int findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYPE high ,int max_len=10e6);
 
+    void addOneNode(int id, int length, DATA_TYPE* data);
     void addOneNode(int length, DATA_TYPE* data);
 
     void addOneNode(Node& node);
