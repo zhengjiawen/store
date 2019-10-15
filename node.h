@@ -12,10 +12,13 @@ private:
     DATA_TYPE *data;
     int length;
     int id;
+    static int idGen;
 
 public:
     Node();
     Node(int id,int length, DATA_TYPE *data);
+    Node(int length, DATA_TYPE *data);
+
     Node(const Node &node);
 
     int getLength();
@@ -23,6 +26,7 @@ public:
     void setId(int id);
     DATA_TYPE* getAllData();
     DATA_TYPE getDataById(int index);
+    static int getIdGen();
 
     ~Node();
 
