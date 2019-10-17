@@ -35,7 +35,7 @@ Table::Table(string path, int attr_len):path(path) {
     }
     delete[] data;
     infile.close();
-//    this->outfile.open(this->path, ios::app);
+    this->outfile.open(this->path, ios::app);
 }
 
 Table::Table(vector<Node>& data_list, int length):data_list(data_list), add_list(data_list),length(length) {
@@ -147,6 +147,11 @@ vector<Node>& Table::getAllData() {
 int Table::findAttrByRange(vector<Node>& ret,int attrId, DATA_TYPE low, DATA_TYPE high, int max_len) {
     shared_lock<shared_mutex> lock(_mutex);
 
+    if(this->attrId2Index.find(attrId) != this->attrId2Index.end())
+    {
+        return this->attrId2Index.find(attrId)->second.findNodebyValue(ret, low, high, max_len);
+    }
+
     auto iter = this->data_list.begin();
     int count = 0;
 
@@ -198,6 +203,10 @@ int Table::writeFile(string &output_path) {
 
     return writeFile();
 
+}
+
+void Table::setIndex(int attr_id, Index &index) {
+    this->attrId2Index.insert({attr_id, index});
 }
 
 

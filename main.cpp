@@ -131,7 +131,7 @@ int main() {
     cout << "=====================create index=====================" << endl;
     Index index(table_p.getAllData(), 0);
     vector<Node> index_ret ;
-    index.findNodebyValue(index_ret, 1254);
+    index.findNodebyValue(index_ret, 1000, 10000, 3);
     print_table(index_ret);
 //
     cout << "=====================write to file2=====================" << endl;

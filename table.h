@@ -15,6 +15,8 @@
 #include <thread>
 #include <fstream>
 #include <mutex>
+#include <map>
+#include "index.h"
 #include "node.h"
 
 
@@ -30,6 +32,7 @@ private:
     int length;
     string path;
     fstream outfile;
+    map<int, Index&> attrId2Index;
 
     mutable shared_mutex _mutex;
 
@@ -64,6 +67,9 @@ public:
     int check_node(int id);
 
     void check_data_list(vector<Node>& data_list);
+
+    //set index
+    void setIndex(int attr_id, Index& index);
 
     ~Table();
 

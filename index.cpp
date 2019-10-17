@@ -37,6 +37,40 @@ int Index::findNodebyValue(vector<Node> &ret, DATA_TYPE value) {
     return count;
 }
 
+int Index::findNodebyValue(vector<Node> &ret, DATA_TYPE low, DATA_TYPE high, int max_len=1000000) {
+    int count=0;
+    auto pos=this->map.find(low);
+    auto end = this->map.find(high);
+    int offset=1;
+    //find nothing
+    while(pos==map.end())
+    {
+        pos = this->map.find(low+offset);
+        if(low+offset==high)
+            return 0;
+        offset++;
+    }
+
+    offset=1;
+    while(end==map.end())
+    {
+        end = this->map.find(high-offset);
+        if(high-offset==low)
+            break;
+        offset++;
+    }
+    for(; pos!=end; ++pos)
+    {
+        ret.emplace_back(pos->second.getId(), pos->second.getLength(), pos->second.getAllData());
+        count++;
+
+        if(count >= max_len)
+            return max_len;
+    }
+
+    return count;
+}
+
 int Index::get_attr_Id() {
     return this->get_attr_Id();
 }

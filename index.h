@@ -28,7 +28,9 @@ public:
     Index(const Index &index);
 
     void insert(Node& node);
-    int findNodebyValue(vector<Node> &ret, int value);
+    int findNodebyValue(vector<Node> &ret, DATA_TYPE value);
+    int findNodebyValue(vector<Node> &ret, DATA_TYPE low, DATA_TYPE high, int max_len);
+
 
     int get_attr_Id();
 
