@@ -5,7 +5,7 @@
 #ifndef STORE_NODE_H
 #define STORE_NODE_H
 
-#define DATA_TYPE int
+#define DATA_TYPE long long
 
 class Node{
 private:
